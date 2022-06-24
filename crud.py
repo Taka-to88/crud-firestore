@@ -30,8 +30,8 @@ def create_data(request):
     db.collection('users').add(user)
 
     # 既存ユーザーの情報追加
-    # item = ({"name": "太郎","age": "26","sex": "Male"})
-    # db.collection('users').document('CB1KCDj7CkWGv23IEt4R').set(item)
+    item = ({"name": "太郎","age": "26","sex": "Male"})
+    db.collection('users').document('CB1KCDj7CkWGv23IEt4R').set(item)
     
     # ブラウザに見せるために返す
     return f'Create User!'
