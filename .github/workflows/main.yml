@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
         with:
           # OSSであれば project_id や service_account_email もsecretsに入れるのが良いでしょう
           project_id: fresh-effort-343112
