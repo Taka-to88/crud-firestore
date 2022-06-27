@@ -3,7 +3,7 @@ on:
   # Push時に実行
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -20,13 +20,11 @@ jobs:
           ## runtimeの設定．今回はpythonを指定
           runtime: python310
 
-          ## GCPの鍵．
-          project_id: fresh-effort-343112
-          service_account_email: gcf-deploy@fresh-effort-343112.iam.gserviceaccount.com
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          ### GCPの鍵．
+          credentials: ${{ secrets.GCP_SA_KEY }}　
 
           ## Functionsにデプロイする関数名
-          entry_point: main
+          entry_point: main.py
 
           ## Regionの指定．指定しないとエラーが出るかも?
           region: asia-northeast1
