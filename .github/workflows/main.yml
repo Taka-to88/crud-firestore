@@ -22,4 +22,6 @@ jobs:
         name: 'firebase-test1'
         runtime: 'python310'
         region: 'asia-northeast1'
+        entry_point: 'create_data'
+        project_id: 'fresh-effort-343112'
 
