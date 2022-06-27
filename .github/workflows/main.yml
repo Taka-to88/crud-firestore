@@ -6,34 +6,20 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
-    name: Deploy Functions
+  job_id:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - id: deploy
-        uses: google-github-actions/deploy-cloud-functions@main
-        with:
-          ## Google Cloud Functions上での名前
-          name: firebase-test1
+    - uses: actions/checkout@v3
 
-          ## runtimeの設定．今回はpythonを指定
-          runtime: python310
+    - id: auth
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: '${{ secrets.gcp_credentials }}'
 
-          ### GCPの鍵．
-          credentials: ${{ secrets.GCP_SA_KEY }}　
-
-          ## Functionsにデプロイする関数名
-          entry_point: main.py
-
-          ## Regionの指定．指定しないとエラーが出るかも?
-          region: asia-northeast1
-
-          ## Schedulerと組み合わせたいので、FunctionsのトリガータイプをPub/Subにする
-#           event_trigger_type: providers/cloud.pubsub/eventTypes/topic.publish
-#           event_trigger_resource: projects/${{ secrets.gcp_project_id }}/topics/my-pubsub-topic
-
-          ## Functions上の環境変数を指定．
-          ## Discordにメッセージを送りたいのでWebhookを設定。
-#           env_vars: DISCORD_WEBHOOK_URL=${{ secrets.discord }}
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-cloud-functions@v0'
+      with:
+        name: 'firebase-test1'
+        runtime: 'python310'
+        region: 'asia-northeast1'
 
