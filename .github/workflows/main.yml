@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy Cloud Functions
 on:
   push:
@@ -31,6 +29,5 @@ jobs:
       with:
         name: 'firebase-test1'
         runtime: 'python310'
-        entry_point: 'create_data'
         region: 'asia-northeast1'
       
