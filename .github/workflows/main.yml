@@ -1,7 +1,7 @@
 name: Deploy Cloud Functions
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
     
 jobs:
   Deploy:
@@ -10,20 +10,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+    - id: auth
+      uses: google-github-actions/auth@v0
       with:
-        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-    - name: "Set up Cloud SDK"
-      uses: "google-github-actions/setup-gcloud@v0"
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
 
-    - name: "Use gcloud CLI"
-      run: "gcloud info"
+    - name: Use gcloud CLI
+      run: gcloud info
 
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-cloud-functions@v0'
+    - id: deploy
+      uses: google-github-actions/deploy-cloud-functions@v0
       with:
-        name: 'firebase-test1'
-        runtime: 'python310'
-        region: 'asia-northeast1'
+        name: firebase-test1
+        runtime: python310
+        region: asia-northeast1
       
