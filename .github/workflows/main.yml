@@ -33,5 +33,4 @@ jobs:
         runtime: 'python310'
         entry_point: 'create_data'
         region: 'asia-northeast1'
-        project_id: 'fresh-effort-343112'
       
