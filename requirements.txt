@@ -1,0 +1,5 @@
+# Function dependencies, for example:
+# package>=version
+google-cloud-firestore==1.2.0
+
+firebase-admin==2.13.0
