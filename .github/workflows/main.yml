@@ -8,20 +8,18 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+    - uses: actions/checkout@v2
+    - id: "auth"
+      uses: "google-github-actions/auth@v0"
       with:
-        credentials_json: '${{ secrets.gcp_credentials }}'
+        credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-cloud-functions@v0'
+    - id: "deploy"
+      uses: "google-github-actions/deploy-cloud-functions@v0"
       with:
-        name: 'firebase-test1'
-        runtime: 'python310'
-        entry_point: create_data
+        name: "firebase-test1"
+        runtime: "python39"
         region: asia-northeast1
         description: crud trigger
+        entry_point: create_data
         ingress_settings: ALLOW_ALL
-
-      
