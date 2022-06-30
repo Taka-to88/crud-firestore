@@ -21,5 +21,5 @@ jobs:
         runtime: "python310"
         region: asia-northeast1
         description: crud trigger
-        entry_point: create_data
+        entry_point: 
         ingress_settings: ALLOW_ALL
