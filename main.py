@@ -1,5 +1,4 @@
 import json
-from google.cloud import firestore
 from flask import Flask, g, request   
 import firebase_admin
 from firebase_admin import firestore    
@@ -18,7 +17,7 @@ def get_db(request):#データベースのコネクションを取得
 
 
 @app.route('/users', methods=['GET'])
-def get_user():
+def get_user(request):
     con = get_db() #コネクションを取得
     docs = con.collection('users').get()
     users_list = []
@@ -69,4 +68,4 @@ def delete_data(id):
 
 
 if __name__ == "__main__":
-    app.run() 
+    app.run(debug=False, host='0.0.0.0', port=80)
