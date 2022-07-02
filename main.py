@@ -8,19 +8,20 @@ from firebase_admin import firestore
 def crud_db(request):
     app = Flask(__name__)
 
-    def get_db():#データベースのコネクションを取得
-        # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
-        if len(firebase_admin._apps) == 0:
-            # アプリを初期化する
-            default_app = firebase_admin.initialize_app()
-        db = firestore.client()
+    # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
+    if len(firebase_admin._apps) == 0:
+        # アプリを初期化する
+        default_app = firebase_admin.initialize_app()
+    db = firestore.client()
         
-        return db 
+    # class User(db.Model):
+    #     name = db.Culumn(db.String(20), unique=True)
+    #     password = db.Culumn(db.String(30))
+    #     email = db.Culumn(db.String(50), unique=True)
 
 
-    @app.route('/users', methods=['GET'])
-    def get_user():
-        con = get_db() #コネクションを取得
+    @app.route('/', methods=['GET'])
+    def get_user():        
         docs = con.collection('users').get()
         users_list = []
         for doc in docs:
@@ -30,13 +31,14 @@ def crud_db(request):
         return return_json
 
 
-    @app.route('/users', methods=['POST'])
+    @app.route('/', methods=['POST'])
     def create_data():
-        con = get_db() #コネクションを取得
-        
         # 新しいユーザーの追加
-        user = request.form["user"] #POSTメソッド のデータを取得
-        con.collection('users').add(user)
+        name = request.form["name"] #POSTメソッド のデータを取得
+        password = request.form["password"]
+        email = request.form["email"]
+        user = ({'name': name, 'password': password, 'email':email})
+        db.collection('users').add({user})
 
         # 既存ユーザーの情報追加
         # item = ({"name": "太郎","age": "26","sex": "Male"})
@@ -46,24 +48,24 @@ def crud_db(request):
         return f'Create User!'
 
 
-    @app.route('/users/<id>', methods=['PUT'])
+    @app.route('/<id>', methods=['PUT'])
     def update_data(id):
-        con = get_db() #コネクションを取得
-        
-        user_items = request.form["user_items"] #POSTメソッド のデータを取得
+        #PUTメソッド のデータを取得
+        name = request.form["name"] #PUTメソッド のデータを取得
+        password = request.form["password"]
+        email = request.form["email"]
+        user_item = ({'name': name, 'password': password, 'email':email})
         # 既存ユーザーの情報更新
-        con.collection('users').document({id}).update({user_items})
+        db.collection('users').document({id}).update({user_items})
         
         # ブラウザに見せるために返す
         return f'Update Data!'
 
 
-    @app.route('/users/<id>', methods=['DELETE'])
+    @app.route('/<id>', methods=['DELETE'])
     def delete_data(id):
-        con = get_db() #コネクションを取得
-        
         # 既存ユーザーの情報更新
-        con.collection('users').document({id}).delete()
+        db.collection('users').document({id}).delete()
         
         # ブラウザに見せるために返す
         return f'Delete Data!'
