@@ -131,16 +131,16 @@ def crud_db(request):
         return f'Update Data!'
 
 
-    def delete_data(request):
-        # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
-        if len(firebase_admin._apps) == 0:
-            # アプリを初期化する
-            default_app = firebase_admin.initialize_app()
-        db = firestore.client()
+    # def delete_data(request):
+    #     # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
+    #     if len(firebase_admin._apps) == 0:
+    #         # アプリを初期化する
+    #         default_app = firebase_admin.initialize_app()
+    #     db = firestore.client()
         
-        # 既存ユーザーの情報更新
-        db.collection('users').document('CB1KCDj7CkWGv23IEt4R').delete()
+    #     # 既存ユーザーの情報更新
+    #     db.collection('users').document('CB1KCDj7CkWGv23IEt4R').delete()
         
-        # ブラウザに見せるために返す
-        return f'Delete Data!'
+    #     # ブラウザに見せるために返す
+    #     return f'Delete Data!'
     return f'Finish!!'
