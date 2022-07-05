@@ -33,7 +33,7 @@ def crud_db(request):
         password = request.form["password"]
         email = request.form["email"]
         user = ({'name': name, 'password': password, 'email':email})
-        db.collection('users').add({user})
+        db.collection('users').add(user)
 
         # 既存ユーザーの情報追加
         # item = ({"name": "太郎","age": "26","sex": "Male"})
@@ -51,7 +51,7 @@ def crud_db(request):
         email = request.form["email"]
         user_item = ({'name': name, 'password': password, 'email':email})
         # 既存ユーザーの情報更新
-        db.collection('users').document({id}).update({user_items})
+        db.collection('users').document({id}).update(user_items)
         
         # ブラウザに見せるために返す
         return f'Update Data!'
