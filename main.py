@@ -17,7 +17,7 @@ def crud_db(request):
 
     @app.route('/', methods=['GET'])
     def get_user():        
-        docs = con.collection('users').get()
+        docs = db.collection('users').get()
         users_list = []
         for doc in docs:
             users_list.append(doc.to_dict())
