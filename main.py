@@ -9,7 +9,7 @@ def crud_db(request):
     app = Flask(__name__)    
 
     @app.route('/', methods=['GET'])
-    def get_user():
+    def get_user(request):
         db = firestore.Client()        
         docs = db.collection('users').get()
         users_list = []
