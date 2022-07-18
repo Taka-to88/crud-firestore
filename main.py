@@ -1,16 +1,14 @@
 import json
-from flask import Flask, g, request
+from flask import request
 import firebase_admin
 from firebase_admin import firestore
 
 # dbpath = 'test.db' #テーブルを保存するファイル
 
 
-def crud_db(request):
-    app = Flask(__name__)
+def crud_db():
 
-    @app.route('/', methods=['GET'])
-    def get_user(request):
+    if request.method == 'GET':
         db = firestore.Client()
         docs = db.collection('company').get()
         users_list = []
@@ -20,8 +18,7 @@ def crud_db(request):
 
         return return_json
 
-    @app.route('/', methods=['POST'])
-    def create_data(request):
+    if request.method == 'POST':
         # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
         if len(firebase_admin._apps) == 0:
             # アプリを初期化する
@@ -39,8 +36,7 @@ def crud_db(request):
         # ブラウザに見せるために返す
         return f'Create Data!'
 
-    @app.route('/', methods=['PUT'])
-    def update_data(request):
+    if request.method == 'PUT':
         # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
         if len(firebase_admin._apps) == 0:
             # アプリを初期化する
@@ -58,8 +54,7 @@ def crud_db(request):
         # ブラウザに見せるために返す
         return f'Update Data!'
 
-    @app.route('/', methods=['DELETE'])
-    def delete_data(request):
+    if request.method == 'DELETE':
         # 初期化済みのアプリが存在しないか確認する。※複数アプリの初期化はエラーです。的な例外に遭遇したので入れたif文
         if len(firebase_admin._apps) == 0:
             # アプリを初期化する
@@ -72,5 +67,3 @@ def crud_db(request):
 
         # ブラウザに見せるために返す
         return f'Delete Data!'
-
-    return
