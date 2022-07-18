@@ -6,7 +6,7 @@ from firebase_admin import firestore
 # dbpath = 'test.db' #テーブルを保存するファイル
 
 
-def crud_db():
+def crud_db(request):
 
     if request.method == 'GET':
         db = firestore.Client()
